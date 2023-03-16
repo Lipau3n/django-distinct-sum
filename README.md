@@ -77,5 +77,6 @@ from django_distinct_sum.aggregates import DistinctSum
 qs = Book.objects.annotate(
     online_orders_sum=DistinctSum('orders__id', 'orders__price', filter=Q(orders__type=BookOrder.ONLINE)),
     total_orders_sum=DistinctSum('orders__id', 'orders__price'),
+    authors_count=models.Count('authors'),
 )
 ```

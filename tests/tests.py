@@ -56,6 +56,7 @@ class DistinctSumTests(TestCase):
         qs = Book.objects.annotate(
             online_orders_sum=DistinctSum('orders__id', 'orders__price', filter=Q(orders__type=BookOrder.ONLINE)),
             total_orders_sum=DistinctSum('orders__id', 'orders__price'),
+            authors_count=Count('authors'),
         ).filter(id=self.book.id)
         self.assertEqual(qs[0].online_orders_sum, Decimal(300))
         self.assertEqual(qs[0].total_orders_sum, Decimal(500))
